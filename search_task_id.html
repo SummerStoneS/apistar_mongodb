@@ -1,0 +1,31 @@
+<html>
+	<head>
+		 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		 <link href="mycss.css" rel="stylesheet" media="screen" />
+	</head>
+	<body>
+		<h1 style="text-align:left">Let's find a task</h1>
+		<hr />
+		<input name='task_id' id='task_id'><input type='button' id='submit' onclick='search_id()' value='search_id'>
+		<h4>输入task_id查询运单信息</h4>
+		<table id='data'>
+			<tr>
+				<th>task_id</th>
+				<th>use_time</th>
+				<th>distance</th>
+				<th>customer_name</th>
+			</tr>
+		</table>
+		<script>
+			function search_id(){
+				var task_id = $('#task_id').val();
+				var table = $('#data');
+				$.get('http://127.0.0.1:8080/task?task_id=' + task_id, function(response,status){
+					
+					table.append("<tr><td>"+task_id+"</td><td>"+response['use_time']+"</td><td>"+response['distance_max']+"</td><td>"+response['customer']['customer_name']+"</td></tr>");
+
+				});
+			}
+		</script>
+	</body>
+</html>
